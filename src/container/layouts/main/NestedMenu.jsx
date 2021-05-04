@@ -7,9 +7,7 @@ const NestedMenu = ({ menuItems }) => {
   return (
     <List>
       {menuItems &&
-        menuItems.map(({ key, label, icons, subMenu }) => (
-          <CollapseMenu key={key} label={label} icons={icons} items={subMenu} />
-        ))}
+        menuItems.map((items) => <CollapseMenu key={items.key} items={items} />)}
     </List>
   );
 };

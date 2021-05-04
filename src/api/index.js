@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const api = axios.create({
-  baseURL: 'https://wastes-management.herokuapp.com/api',
+  baseURL: process.env.REACT_APP_API_URI,
   headers: { 'content-type': 'application/json' },
   responseType: 'json',
 });
@@ -25,7 +25,7 @@ export const useGet = (resources) => {
   };
   const getAll = () => get();
   const getByPK = (primaryKey) => get(primaryKey);
-  return { isPending, error, payload, getAll, getByPK };
+  return { isPending, error, payload, getAll, getByPK, setPayload };
 };
 
 export const useCreate = (resources, onCreated) => {
@@ -46,7 +46,7 @@ export const useCreate = (resources, onCreated) => {
         setIsPending(false);
       });
   };
-  return { isPending, error, payload, create };
+  return { isPending, error, payload, create, setPayload };
 };
 
 export const useUpdate = (resources) => {
@@ -108,7 +108,7 @@ export const useSend = (resources) => {
       .then(({ data }) => setPayload(data))
       .catch((err) => onError(err));
   };
-  return { progress, error, payload, send };
+  return { progress, error, payload, send, setProgress, setPayload };
 };
 
 export const usePublish = (topic) => {

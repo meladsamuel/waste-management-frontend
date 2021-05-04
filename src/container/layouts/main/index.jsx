@@ -40,6 +40,12 @@ const menuItems = [
         icons: 'Edit',
         link: '/baskets/update',
       },
+      {
+        key: 14,
+        label: 'Update Basket software',
+        icons: 'SystemUpdateAlt',
+        link: '/baskets/update-software',
+      },
     ],
   },
   {
