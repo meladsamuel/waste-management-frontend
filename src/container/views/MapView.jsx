@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import BasketDialog from '../../component/BasketDialog';
 import Map from '../../component/Map';
 import { useGet } from '../../api';
-import UpdateBasketDialog from '../../component/UpdateBasket';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
@@ -29,7 +28,7 @@ function MapView() {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
   const [basketPosition, setBasketPosition] = useState(null);
-  const [selectedBasket, setSelectedBasket] = useState(null);
+  // const [selectedBasket, setSelectedBasket] = useState(null);
   const { payload, getAll: getAllBasket } = useGet('/baskets');
 
   const handleAddBasket = (event) => {
@@ -38,13 +37,13 @@ function MapView() {
     setOpenDialog(true);
   };
 
-  const handleShowBaskete = () => {
+  const handleShowBaskets = () => {
     setOpenDialog(!openDialog);
   };
 
-  const handleUpdateBasket = (event, id) => {
+  const handleUpdateBasket = () => {
     setOpenDialog(!openDialog);
-    setSelectedBasket(id);
+    // setSelectedBasket(id);
   };
 
   useEffect(getAllBasket, []);
@@ -54,7 +53,7 @@ function MapView() {
       <Switch>
         <Route path="/baskets/add">
           <Map
-            markerClick={handleShowBaskete}
+            markerClick={handleShowBaskets}
             data={payload}
             onClick={handleAddBasket}
           />
@@ -66,18 +65,18 @@ function MapView() {
           />
         </Route>
         <Route path="/baskets/show">
-          <Map markerClick={handleShowBaskete} data={payload} />
+          <Map markerClick={handleShowBaskets} data={payload} />
         </Route>
         <Route path="/baskets/update">
-          <Map markerClick={handleShowBaskete} data={payload} />
+          <Map markerClick={handleShowBaskets} data={payload} />
         </Route>
         <Route path="/baskets/update-software">
           <Map markerClick={handleUpdateBasket} data={payload} />
-          <UpdateBasketDialog
-            basket={selectedBasket}
-            openDialog={openDialog}
-            setOpenDialog={setOpenDialog}
-          />
+          {/* <UpdateBasketDialog */}
+          {/*  basket={selectedBasket} */}
+          {/*  openDialog={openDialog} */}
+          {/*  setOpenDialog={setOpenDialog} */}
+          {/* /> */}
         </Route>
       </Switch>
     </div>

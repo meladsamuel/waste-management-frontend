@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { ChevronLeft, Menu, ChevronRight } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import NestedMenu from './NestedMenu';
+import ListCollapseMenu from './ListCollapseMenu';
 
 const drawerWidth = 240;
 const menuItems = [
@@ -90,14 +90,7 @@ const menuItems = [
     key: 4,
     label: 'Home Page',
     icons: 'Home',
-    subMenu: [
-      {
-        key: 41,
-        label: 'dashboard',
-        icons: 'Home',
-        link: '/dashboard',
-      },
-    ],
+    link: '/dashboard',
   },
 ];
 
@@ -221,7 +214,7 @@ const AuthLayout = ({ children, hasPadding }) => {
           </IconButton>
         </div>
         <Divider />
-        <NestedMenu menuItems={menuItems} />
+        <ListCollapseMenu drawerOpen={open} menuItems={menuItems} />
       </Drawer>
       <main
         className={clsx({

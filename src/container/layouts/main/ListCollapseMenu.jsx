@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from '@material-ui/core';
 import CollapseMenu from './CollapseMenu';
 
-const NestedMenu = ({ drawerOpen, menuItems }) => {
+const ListCollapseMenu = ({ drawerOpen, menuItems }) => {
   return (
     <List>
       {menuItems &&
@@ -13,8 +13,8 @@ const NestedMenu = ({ drawerOpen, menuItems }) => {
     </List>
   );
 };
-NestedMenu.propTypes = {
+ListCollapseMenu.propTypes = {
   menuItems: PropTypes.arrayOf(PropTypes.any).isRequired,
   drawerOpen: PropTypes.bool.isRequired,
 };
-export default NestedMenu;
+export default ListCollapseMenu;
