@@ -3,20 +3,29 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { makeStyles } from '@material-ui/core';
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 30.745,
+  lng: 31.523,
 };
-const useStyles = makeStyles((theme) => ({
-  mapContainer: {
-    flex: 1,
-    height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)`,
-  },
-  '@global': {
-    'html, body, #root': {
-      height: '100%',
+const useStyles = makeStyles((theme) => {
+  const { toolbar } = theme.mixins;
+  return {
+    mapContainer: {
+      flex: 1,
+      '@media (min-width:0px) and (orientation: landscape)': {
+        minHeight: `calc(100% - ${toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px)`,
+      },
+      '@media (min-width:600px)': {
+        minHeight: `calc(100% - ${toolbar['@media (min-width:600px)'].minHeight}px)`,
+      },
+      minHeight: `calc(100% - ${toolbar.minHeight}px)`,
     },
-  },
-}));
+    '@global': {
+      'html, body, #root': {
+        height: '100%',
+      },
+    },
+  };
+});
 
 function MapWrapper() {
   const classes = useStyles();
@@ -24,16 +33,16 @@ function MapWrapper() {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.GOOGLE_MAP_API,
   });
-
+  console.log(process.env);
   const [, setMap] = React.useState(null);
 
-  const onLoad = React.useCallback(function callback(map) {
+  const onLoad = React.useCallback((map) => {
     const bounds = new window.google.maps.LatLngBounds();
     map.fitBounds(bounds);
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback() {
+  const onUnmount = React.useCallback(() => {
     setMap(null);
   }, []);
 
@@ -41,7 +50,7 @@ function MapWrapper() {
     <GoogleMap
       mapContainerClassName={classes.mapContainer}
       center={center}
-      zoom={10}
+      zoom={12}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
