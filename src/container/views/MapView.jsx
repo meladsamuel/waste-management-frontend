@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Switch, Route } from 'react-router-dom';
-import BasketDialog from '../../component/BasketDialog';
+import AddBasketDialog from '../../component/AddBasketDialog';
 import Map from '../../component/Map';
 import { useGet } from '../../api';
+import UpdateBasketDialog from '../../component/UpdateBasketDialog';
 
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
@@ -28,12 +29,11 @@ function MapView() {
   const classes = useStyles();
   const [openDialog, setOpenDialog] = useState(false);
   const [basketPosition, setBasketPosition] = useState(null);
-  // const [selectedBasket, setSelectedBasket] = useState(null);
+  const [selectedBasket, setSelectedBasket] = useState();
   const { payload, getAll: getAllBasket } = useGet('/baskets');
 
-  const handleAddBasket = (event) => {
-    console.log(event);
-    setBasketPosition({ lat: event?.latLng.lat(), lng: event?.latLng.lng() });
+  const handleAddBasket = ({ latLng }) => {
+    setBasketPosition({ lat: latLng.lat(), lng: latLng.lng() });
     setOpenDialog(true);
   };
 
@@ -41,9 +41,9 @@ function MapView() {
     setOpenDialog(!openDialog);
   };
 
-  const handleUpdateBasket = () => {
+  const handleUpdateBasket = (event, id) => {
     setOpenDialog(!openDialog);
-    // setSelectedBasket(id);
+    setSelectedBasket(id);
   };
 
   useEffect(getAllBasket, []);
@@ -57,7 +57,7 @@ function MapView() {
             data={payload}
             onClick={handleAddBasket}
           />
-          <BasketDialog
+          <AddBasketDialog
             setOpenDialog={setOpenDialog}
             openDialog={openDialog}
             coordinates={basketPosition}
@@ -72,11 +72,13 @@ function MapView() {
         </Route>
         <Route path="/baskets/update-software">
           <Map markerClick={handleUpdateBasket} data={payload} />
-          {/* <UpdateBasketDialog */}
-          {/*  basket={selectedBasket} */}
-          {/*  openDialog={openDialog} */}
-          {/*  setOpenDialog={setOpenDialog} */}
-          {/* /> */}
+          {selectedBasket && (
+            <UpdateBasketDialog
+              basket={selectedBasket}
+              openDialog={openDialog}
+              setOpenDialog={setOpenDialog}
+            />
+          )}
         </Route>
       </Switch>
     </div>
