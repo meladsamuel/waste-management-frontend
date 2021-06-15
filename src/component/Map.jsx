@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Map({ data, onClick, markerClick }) {
+function Map({ data, onClick, markerClick, options }) {
   const classes = useStyles();
   const mapRef = React.useRef(null);
   const [mapOptions, setMapOptions] = React.useState({
@@ -41,12 +41,14 @@ function Map({ data, onClick, markerClick }) {
       onClick={onClick}
       onLoad={handleLoad}
       onDragEnd={positionHandler}
-      options={{
-        disableDefaultUI: true,
-        styles: mapStyle,
-        center: mapOptions?.center,
-        zoom: mapOptions?.zoom,
-      }}
+      options={
+        options || {
+          disableDefaultUI: true,
+          styles: mapStyle,
+          center: mapOptions?.center,
+          zoom: mapOptions?.zoom,
+        }
+      }
       mapContainerClassName={classes.mapContainer}
     >
       {data &&
@@ -68,6 +70,7 @@ function Map({ data, onClick, markerClick }) {
 
 Map.defaultProps = {
   data: null,
+  options: null,
   onClick: () => {},
   markerClick: () => {},
 };
@@ -76,15 +79,21 @@ Map.propTypes = {
   data: PropTypes.shape({
     baskets: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
-        longitude: PropTypes.number,
-        latitude: PropTypes.number,
-        micro_controller: PropTypes.string,
-        software_version: PropTypes.string,
-        sections_levels_in_the_basket: PropTypes.arrayOf(PropTypes.number),
-        wastes_level_in_the_section: PropTypes.arrayOf(PropTypes.number),
+        disableDefaultUI: PropTypes.bool,
+        styles: PropTypes.objectOf(PropTypes.any),
+        center: PropTypes.number,
+        zoom: PropTypes.number,
       })
     ),
+  }),
+  options: PropTypes.shape({
+    id: PropTypes.number,
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
+    micro_controller: PropTypes.string,
+    software_version: PropTypes.string,
+    sections_levels_in_the_basket: PropTypes.arrayOf(PropTypes.number),
+    wastes_level_in_the_section: PropTypes.arrayOf(PropTypes.number),
   }),
   onClick: PropTypes.func,
   markerClick: PropTypes.func,
