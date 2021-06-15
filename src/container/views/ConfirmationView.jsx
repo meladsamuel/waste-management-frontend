@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, Button, makeStyles } from '@material-ui/core';
+import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ConfirmationView = () => {
   const classes = useStyles();
+  const { user } = useAuth();
   return (
     <Container className={classes.root}>
       <img width="200" src="/verify_email.svg" alt="verify your email" />
@@ -29,7 +31,7 @@ const ConfirmationView = () => {
       </Typography>
       <Typography paragraph align="center">
         An email containing verification instructions was sent to{' '}
-        <strong>meladsamuel@meladsamuel.com</strong>.
+        <strong>{user?.email}</strong>.
       </Typography>
       <div className={classes.actionSection}>
         <Button variant="outlined" color="primary">
