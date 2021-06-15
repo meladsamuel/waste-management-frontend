@@ -11,88 +11,12 @@ import {
   Divider,
   IconButton,
 } from '@material-ui/core';
-import { ChevronLeft, Menu, ChevronRight } from '@material-ui/icons';
+import { ChevronLeft, Menu as MenuIcon, ChevronRight } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import ListCollapseMenu from './ListCollapseMenu';
+import ListMenu from './ListMenu';
+import UserMenu from './UserMenu';
 
-const drawerWidth = 240;
-const menuItems = [
-  {
-    key: 1,
-    label: 'Baskets',
-    icons: 'Delete',
-    subMenu: [
-      {
-        key: 11,
-        label: 'Show Basket',
-        icons: 'Visibility',
-        link: '/baskets/show',
-      },
-      {
-        key: 12,
-        label: 'Add New Basket',
-        icons: 'Add',
-        link: '/baskets/add',
-      },
-      {
-        key: 13,
-        label: 'Edit Basket',
-        icons: 'Edit',
-        link: '/baskets/update',
-      },
-      {
-        key: 14,
-        label: 'Update Basket software',
-        icons: 'SystemUpdateAlt',
-        link: '/baskets/update-software',
-      },
-    ],
-  },
-  {
-    key: 2,
-    label: 'Employees',
-    icons: 'PeopleAlt',
-    subMenu: [
-      {
-        key: 21,
-        label: 'Show Employee',
-        icons: 'Visibility',
-        link: '/employees/show',
-      },
-      {
-        key: 22,
-        label: 'Add Employee',
-        icons: 'Add',
-        link: '/employees/add',
-      },
-    ],
-  },
-  {
-    key: 3,
-    label: 'Update Device',
-    icons: 'SystemUpdateAlt',
-    subMenu: [
-      {
-        key: 31,
-        label: 'Upload File',
-        icons: 'AttachFile',
-        link: '/update',
-      },
-      {
-        key: 32,
-        label: 'Update Device',
-        icons: 'Delete',
-        link: '/baskets/update_software',
-      },
-    ],
-  },
-  {
-    key: 4,
-    label: 'Home Page',
-    icons: 'Home',
-    link: '/dashboard',
-  },
-];
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -156,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   hasPadding: { padding: theme.spacing(2) },
+  grow: {
+    flexGrow: 1,
+  },
 }));
 
 const AuthLayout = ({ children, hasPadding }) => {
@@ -188,11 +115,13 @@ const AuthLayout = ({ children, hasPadding }) => {
               [classes.hide]: open,
             })}
           >
-            <Menu />
+            <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
             Waste Management System
           </Typography>
+          <div className={classes.grow} />
+          <UserMenu />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -214,7 +143,7 @@ const AuthLayout = ({ children, hasPadding }) => {
           </IconButton>
         </div>
         <Divider />
-        <ListCollapseMenu drawerOpen={open} menuItems={menuItems} />
+        <ListMenu drawerOpen={open} />
       </Drawer>
       <main
         className={clsx({
