@@ -4,6 +4,10 @@ on:
     branches:
       - master
 
+env:
+  REACT_APP_GOOGLE_MAP_API: ${{ secrets.REACT_APP_GOOGLE_MAP_API}}
+  REACT_APP_API_URI: ${{ secrets.REACT_APP_API_URI}}
+
 jobs:
   build:
     name: Build
@@ -40,5 +44,3 @@ jobs:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          REACT_APP_GOOGLE_MAP_API: ${{ secrets.REACT_APP_GOOGLE_MAP_API}}
-          REACT_APP_API_URI: ${{ secrets.REACT_APP_API_URI}}
