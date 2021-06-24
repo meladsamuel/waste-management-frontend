@@ -15,6 +15,7 @@ import { ChevronLeft, Menu as MenuIcon, ChevronRight } from '@material-ui/icons'
 import PropTypes from 'prop-types';
 import ListMenu from './ListMenu';
 import UserMenu from './UserMenu';
+import Notification from '../../../component/Notification';
 
 const drawerWidth = 280;
 
@@ -121,6 +122,7 @@ const AuthLayout = ({ children, hasPadding }) => {
             Waste Management System
           </Typography>
           <div className={classes.grow} />
+          <Notification />
           <UserMenu />
         </Toolbar>
       </AppBar>
