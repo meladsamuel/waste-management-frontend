@@ -18,82 +18,85 @@ import RoleDetailsView from './container/views/RoleDetailsView';
 import ConfirmationView from './container/views/ConfirmationView';
 import ProfileView from './container/views/ProfileView';
 import Activate from './component/Activate';
+import SocketProvider from './contexts/SocketContext';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Switch>
-          <AuthRoute exact path="/">
-            <ClientLayout>
-              <HomeView />
-            </ClientLayout>
-          </AuthRoute>
-          <AuthRoute exact path="/profile">
-            <ClientLayout>
-              <ProfileView />
-            </ClientLayout>
-          </AuthRoute>
-          <AuthRoute path="/dashboard" appPermissions={['basket:read']}>
-            <MainLayout>
-              <Typography variant="h3">Dashborad Page</Typography>
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute
-            path="/baskets/:action"
-            appPermissions={[
-              'basket:read',
-              'basket:create',
-              'basket:update',
-              'basket:software-update',
-            ]}
-          >
-            <MainLayout hasPadding={false}>
-              <MapView />
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute path="/users/show" appPermissions={['users:read']}>
-            <MainLayout>
-              <UserView />
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute exact path="/roles" appPermissions={['roles:read']}>
-            <MainLayout>
-              <RoleView />
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute exact path="/roles/:role" appPermissions={['role:read']}>
-            <MainLayout>
-              <RoleDetailsView />
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute path="/permissions" appPermissions={['permissions:read']}>
-            <MainLayout>
-              <PermissionView />
-            </MainLayout>
-          </AuthRoute>
-          <AuthRoute path="/confirm" exclude>
-            <ClientLayout>
-              <ConfirmationView />
-            </ClientLayout>
-          </AuthRoute>
-          <Route path="/activate">
-            <Activate />
-          </Route>
-          <GuardRoute path="/register">
-            <ClientLayout>
-              <SignUp />
-            </ClientLayout>
-          </GuardRoute>
-          <GuardRoute path="/login">
-            <ClientLayout>
-              <Login />
-            </ClientLayout>
-          </GuardRoute>
-          <Route>
-            <NotFoundView />
-          </Route>
-        </Switch>
+        <SocketProvider>
+          <Switch>
+            <AuthRoute exact path="/">
+              <ClientLayout>
+                <HomeView />
+              </ClientLayout>
+            </AuthRoute>
+            <AuthRoute exact path="/profile">
+              <ClientLayout>
+                <ProfileView />
+              </ClientLayout>
+            </AuthRoute>
+            <AuthRoute path="/dashboard" appPermissions={['basket:read']}>
+              <MainLayout>
+                <Typography variant="h3">Dashborad Page</Typography>
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute
+              path="/baskets/:action"
+              appPermissions={[
+                'basket:read',
+                'basket:create',
+                'basket:update',
+                'basket:software-update',
+              ]}
+            >
+              <MainLayout hasPadding={false}>
+                <MapView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute path="/users/show" appPermissions={['users:read']}>
+              <MainLayout>
+                <UserView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute exact path="/roles" appPermissions={['roles:read']}>
+              <MainLayout>
+                <RoleView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute exact path="/roles/:role" appPermissions={['role:read']}>
+              <MainLayout>
+                <RoleDetailsView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute path="/permissions" appPermissions={['permissions:read']}>
+              <MainLayout>
+                <PermissionView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute path="/confirm" exclude>
+              <ClientLayout>
+                <ConfirmationView />
+              </ClientLayout>
+            </AuthRoute>
+            <Route path="/activate">
+              <Activate />
+            </Route>
+            <GuardRoute path="/register">
+              <ClientLayout>
+                <SignUp />
+              </ClientLayout>
+            </GuardRoute>
+            <GuardRoute path="/login">
+              <ClientLayout>
+                <Login />
+              </ClientLayout>
+            </GuardRoute>
+            <Route>
+              <NotFoundView />
+            </Route>
+          </Switch>
+        </SocketProvider>
       </AuthProvider>
     </Router>
   );
