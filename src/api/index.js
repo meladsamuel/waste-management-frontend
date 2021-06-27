@@ -70,7 +70,7 @@ api.interceptors.response.use(
   }
 );
 
-export const useGet = (resources) => {
+export const useGet = (resources, onSuccess) => {
   const [payload, setPayload] = useState(null);
   const [error, onError] = useState(null);
   const [isPending, setIsPending] = useState(false);
@@ -81,6 +81,7 @@ export const useGet = (resources) => {
       .then(({ data }) => {
         setPayload(data);
         setIsPending(false);
+        onSuccess(data);
       })
       .catch((err) => {
         onError(err);
