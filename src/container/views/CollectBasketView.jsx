@@ -115,9 +115,6 @@ const CollectBasketView = () => {
     if (res !== null && !response) {
       if (res.status === 'OK') {
         setResponse(res);
-        console.log(response);
-      } else {
-        console.log('response: ', res);
       }
     }
   }, []);
