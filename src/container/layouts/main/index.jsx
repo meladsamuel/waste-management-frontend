@@ -11,11 +11,18 @@ import {
   Divider,
   IconButton,
 } from '@material-ui/core';
-import { ChevronLeft, Menu as MenuIcon, ChevronRight } from '@material-ui/icons';
+import {
+  ChevronLeft,
+  Menu as MenuIcon,
+  LocalShippingRounded as CarIcon,
+  ChevronRight,
+} from '@material-ui/icons';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 import ListMenu from './ListMenu';
 import UserMenu from './UserMenu';
 import Notification from '../../../component/Notification';
+import RBAC from '../../../component/RBAC';
 
 const drawerWidth = 280;
 
@@ -119,9 +126,14 @@ const AuthLayout = ({ children, hasPadding }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Waste Management System
+            Smart management system for waste bins
           </Typography>
           <div className={classes.grow} />
+          <RBAC appRoles={['waste:collect']}>
+            <IconButton component={RouterLink} to="/collect/set" color="inherit">
+              <CarIcon />
+            </IconButton>
+          </RBAC>
           <Notification />
           <UserMenu />
         </Toolbar>
