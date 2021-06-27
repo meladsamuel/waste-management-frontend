@@ -19,6 +19,7 @@ import ConfirmationView from './container/views/ConfirmationView';
 import ProfileView from './container/views/ProfileView';
 import Activate from './component/Activate';
 import SocketProvider from './contexts/SocketContext';
+import CollectBasketView from './container/views/CollectBasketView';
 
 function App() {
   return (
@@ -52,6 +53,11 @@ function App() {
             >
               <MainLayout hasPadding={false}>
                 <MapView />
+              </MainLayout>
+            </AuthRoute>
+            <AuthRoute path="/collect/:action">
+              <MainLayout hasPadding={false}>
+                <CollectBasketView />
               </MainLayout>
             </AuthRoute>
             <AuthRoute path="/users/show" appPermissions={['users:read']}>
