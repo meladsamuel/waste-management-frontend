@@ -40,7 +40,7 @@ const ClientLayout = ({ children }) => {
       <AppBar>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Waste Management System
+            Smart management system for waste bins
           </Typography>
           <div className={classes.grow} />
           {token?.sub ? <UserMenu /> : null}

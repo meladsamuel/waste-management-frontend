@@ -14,6 +14,7 @@ import {
   InputAdornment,
   IconButton,
   FormHelperText,
+  LinearProgress,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useFormik } from 'formik';
@@ -22,10 +23,12 @@ import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { useAuth } from '../contexts/AuthContext';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
     margin: 'auto',
+    marginTop: theme.spacing(5),
+    overflow: 'hidden',
   },
 }));
 
@@ -81,6 +84,7 @@ const SignUp = () => {
   return (
     <form onSubmit={form.handleSubmit}>
       <Paper className={classes.root}>
+        {loading && <LinearProgress />}
         <Grid
           container
           alignItems="center"

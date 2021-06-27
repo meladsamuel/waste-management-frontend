@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Map({ data, onClick, markerClick, options }) {
+function Map({ data, onClick, markerClick, options, children }) {
   const classes = useStyles();
   const mapRef = React.useRef(null);
   const [mapOptions, setMapOptions] = React.useState({
@@ -60,6 +60,7 @@ function Map({ data, onClick, markerClick, options }) {
             onClick={(event) => markerClick(event, id)}
           />
         ))}
+      {children}
     </GoogleMap>
   ) : (
     <Backdrop open={!isLoaded}>
@@ -70,12 +71,14 @@ function Map({ data, onClick, markerClick, options }) {
 
 Map.defaultProps = {
   data: null,
+  children: null,
   options: null,
   onClick: () => {},
   markerClick: () => {},
 };
 
 Map.propTypes = {
+  children: PropTypes.element,
   data: PropTypes.shape({
     baskets: PropTypes.arrayOf(
       PropTypes.shape({
