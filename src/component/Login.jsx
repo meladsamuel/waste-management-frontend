@@ -7,6 +7,7 @@ import {
   Grid,
   makeStyles,
   Link,
+  LinearProgress,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useFormik } from 'formik';
@@ -14,10 +15,12 @@ import * as yup from 'yup';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
     margin: 'auto',
+    marginTop: theme.spacing(5),
+    overflow: 'hidden',
   },
 }));
 
@@ -48,6 +51,7 @@ const Login = () => {
   return (
     <form onSubmit={form.handleSubmit}>
       <Paper className={classes.root}>
+        {loading && <LinearProgress />}
         <Grid
           container
           alignItems="center"
@@ -80,6 +84,7 @@ const Login = () => {
               variant="outlined"
               name="password"
               label="Password"
+              type="password"
               value={form.values.password}
               onChange={form.handleChange}
               error={form.touched.password && Boolean(form.errors.password)}
