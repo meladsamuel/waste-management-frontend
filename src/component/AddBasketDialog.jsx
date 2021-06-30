@@ -101,7 +101,7 @@ const AddBasketDialog = ({ setOpenDialog, openDialog, coordinates, onSuccess }) 
         </Grid>
         <Grid item md={6}>
           <img
-            src={`http://localhost:5000/api/quick_response_code/${id}`}
+            src={`${process.env.REACT_APP_API_URI}/api/quick_response_code/${id}`}
             alt={`basket no. ${id}`}
             style={{ width: '100%' }}
           />
