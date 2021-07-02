@@ -14,7 +14,7 @@ const api = axios.create({
 function getNewToken() {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${process.env.REACT_APP_API_URI}/api/users/auth/refresh`, null, {
+      .post(`${process.env.REACT_APP_API_URI}users/auth/refresh`, null, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('refresh_token')}`,
         },
