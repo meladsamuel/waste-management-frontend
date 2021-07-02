@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
 import MainLayout from './container/layouts/main';
 import ClientLayout from './container/layouts/client';
 import HomeView from './container/views/HomeView';
@@ -20,6 +19,7 @@ import ProfileView from './container/views/ProfileView';
 import Activate from './component/Activate';
 import SocketProvider from './contexts/SocketContext';
 import CollectBasketView from './container/views/CollectBasketView';
+import DashboardView from './container/views/DashboardView';
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
             </AuthRoute>
             <AuthRoute path="/dashboard" appPermissions={['basket:read']}>
               <MainLayout>
-                <Typography variant="h3">Dashborad Page</Typography>
+                <DashboardView />
               </MainLayout>
             </AuthRoute>
             <AuthRoute
